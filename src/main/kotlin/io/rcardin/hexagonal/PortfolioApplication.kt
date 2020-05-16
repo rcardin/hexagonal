@@ -4,8 +4,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class HexagonalArchitectureApplication
+class PortfolioApplication
 
 fun main(args: Array<String>) {
-	runApplication<HexagonalArchitectureApplication>(*args)
+	runApplication<PortfolioApplication>(*args)
 }
