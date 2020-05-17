@@ -1,5 +1,5 @@
 package io.rcardin.hexagonal.portfolio
 
 interface PortfolioCreationPort {
-    fun createPortfolio(name: String): Boolean
+    suspend fun createPortfolio(portfolio: Portfolio): Boolean
 }
