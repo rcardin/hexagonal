@@ -2,7 +2,9 @@ package io.rcardin.hexagonal.portfolio
 
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import org.springframework.stereotype.Repository
 
+@Repository
 class PortfolioPersistenceAdapter(
         private val repository: PortfolioRepository
 ): PortfolioCreationPort {
