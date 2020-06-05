@@ -20,7 +20,7 @@ internal class PortfolioCreationServiceTest {
     lateinit var service: PortfolioCreationService
 
     @Test
-    fun createPortfolioShouldReturnTheResultOfPortfolioCreation() =
+    fun `The creation of a portfolio should return the result of the persistence operation`() =
             runBlocking {
                 val portfolio = Portfolio("portfolio")
                 whenever(creationPort.createPortfolio(portfolio)).thenReturn(true)
