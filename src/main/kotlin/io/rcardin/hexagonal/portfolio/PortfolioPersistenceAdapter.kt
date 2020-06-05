@@ -6,8 +6,7 @@ import org.springframework.stereotype.Repository
 
 @Repository
 class PortfolioPersistenceAdapter(
-        private val repository: PortfolioRepository
-): PortfolioCreationPort {
+        private val repository: PortfolioRepository): PortfolioCreationPort {
 
     private val logger: Logger = LoggerFactory.getLogger(javaClass)
 
