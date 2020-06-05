@@ -1,6 +1,6 @@
 package io.rcardin.hexagonal.portfolio
 
-class Portfolio(val name: String) {
+data class Portfolio(val name: String) {
 
     private val stocks: List<Stock> = mutableListOf()
 
