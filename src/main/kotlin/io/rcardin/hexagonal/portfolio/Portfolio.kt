@@ -1,12 +1,14 @@
 package io.rcardin.hexagonal.portfolio
 
-data class Portfolio(val name: String) {
+data class Portfolio(val name: String, val stocks: Set<Stock> = setOf()) {
 
-    private val stocks: List<Stock> = mutableListOf()
-
-    fun getTotalValue() = stocks.sumByDouble { it.getTotalValue() }
+    fun buy(name: String, quantity: Long): Portfolio {
+        val maybeStock = stocks.firstOrNull { it.name == name }
+        val newStocks = stocks.plus(maybeStock?.add(quantity) ?: Stock(name, quantity))
+        return copy(stocks = newStocks)
+    }
 }
 
-data class Stock(val name: String, val owned: Long, val value: Double) {
-    fun getTotalValue(): Double = value * owned
+data class Stock(val name: String, val owned: Long) {
+    fun add(quantity: Long): Stock = copy(owned = owned + quantity)
 }
