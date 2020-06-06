@@ -34,4 +34,17 @@ internal class PortfolioCreationControllerTest {
                         .valueEquals("Location", "/portfolios/portfolio")
                 Unit
             }
+
+    @Test
+    fun `Create a portfolio should return a 500 status in case of exception`() = runBlocking {
+        val command = PortfolioCreationCommand("portfolio")
+        whenever(userCase.createPortfolio(command)).thenReturn(false)
+        client.post()
+                .uri("/portfolios")
+                .body(BodyInserters.fromValue("portfolio"))
+                .exchange()
+                .expectStatus()
+                .is5xxServerError
+        Unit
+    }
 }

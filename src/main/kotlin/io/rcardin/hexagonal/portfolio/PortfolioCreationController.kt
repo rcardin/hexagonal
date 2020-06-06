@@ -1,5 +1,6 @@
 package io.rcardin.hexagonal.portfolio
 
+import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -16,7 +17,7 @@ class PortfolioCreationController(private val useCase: PortfolioCreationUseCase)
         return if (created) {
             ResponseEntity.created(URI.create("/portfolios/$name")).build()
         } else {
-            ResponseEntity.notFound().build()
+            ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build()
         }
     }
 }
