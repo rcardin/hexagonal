@@ -20,7 +20,7 @@ internal class PortfolioPersistenceAdapterTest {
     lateinit var persistenceAdapter: PortfolioPersistenceAdapter
 
     @Test
-    fun `The creation of a portfolio should return true if everything goes fine`() =
+    internal fun `The creation of a portfolio should return true if everything goes fine`() =
             runBlocking {
                 val portfolio = Portfolio("portfolio")
                 whenever(repository.save(portfolio)).thenReturn(portfolio)
@@ -29,7 +29,7 @@ internal class PortfolioPersistenceAdapterTest {
             }
 
     @Test
-    fun `The creation of a portfolio should return false if something goes wrong`() =
+    internal fun `The creation of a portfolio should return false if something goes wrong`() =
             runBlocking {
                 val portfolio = Portfolio("portfolio")
                 whenever(repository.save(portfolio)).thenThrow(RuntimeException())

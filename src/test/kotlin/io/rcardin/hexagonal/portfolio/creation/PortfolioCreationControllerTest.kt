@@ -21,7 +21,7 @@ internal class PortfolioCreationControllerTest {
     lateinit var client: WebTestClient
 
     @Test
-    fun `Create portfolio should return a 201 status within the Location header`(): Unit =
+    internal fun `Create portfolio should return a 201 status within the Location header`(): Unit =
             runBlocking {
                 val command = PortfolioCreationCommand("portfolio")
                 whenever(userCase.createPortfolio(command)).thenReturn(true)
@@ -37,7 +37,7 @@ internal class PortfolioCreationControllerTest {
             }
 
     @Test
-    fun `Create a portfolio should return a 500 status in case of exception`() = runBlocking {
+    internal fun `Create a portfolio should return a 500 status in case of exception`() = runBlocking {
         val command = PortfolioCreationCommand("portfolio")
         whenever(userCase.createPortfolio(command)).thenReturn(false)
         client.post()

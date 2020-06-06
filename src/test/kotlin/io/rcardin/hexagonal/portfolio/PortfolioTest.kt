@@ -1,11 +1,22 @@
 package io.rcardin.hexagonal.portfolio
 
 import org.junit.jupiter.api.Test
+import strikt.api.expectThat
+import strikt.assertions.contains
 
 internal class PortfolioTest {
 
     @Test
-    fun buy() {
-        TODO()
+    internal fun `Buy a freshly new stock should add it to the portfolio`() {
+        val portfolio = Portfolio("portfolio")
+        val (_, owned) = portfolio.buy("AAPL", 1000L)
+        expectThat(owned).contains(Stock("AAPL", 1000L))
+    }
+
+    @Test
+    internal fun `Buy a stock that is already owned should add the proper quantity`() {
+        val portfolio = Portfolio("portfolio", setOf(Stock("AAPL", 1000L)))
+        val (_, owned) = portfolio.buy("AAPL", 500L)
+        expectThat(owned).contains(Stock("AAPL", 1500L))
     }
 }
