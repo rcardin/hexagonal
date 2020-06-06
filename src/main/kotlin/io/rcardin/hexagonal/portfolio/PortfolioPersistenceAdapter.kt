@@ -1,5 +1,6 @@
 package io.rcardin.hexagonal.portfolio
 
+import io.rcardin.hexagonal.portfolio.creation.PortfolioCreationPort
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Repository

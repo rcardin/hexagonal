@@ -1,4 +1,4 @@
-package io.rcardin.hexagonal.portfolio
+package io.rcardin.hexagonal.portfolio.creation
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration

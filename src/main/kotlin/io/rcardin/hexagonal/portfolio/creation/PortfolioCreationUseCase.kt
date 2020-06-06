@@ -1,4 +1,4 @@
-package io.rcardin.hexagonal.portfolio
+package io.rcardin.hexagonal.portfolio.creation
 
 /**
  * Input port to create a new empty portfolio.

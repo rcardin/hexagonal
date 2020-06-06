@@ -1,4 +1,4 @@
-package io.rcardin.hexagonal.portfolio
+package io.rcardin.hexagonal.portfolio.creation
 
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity

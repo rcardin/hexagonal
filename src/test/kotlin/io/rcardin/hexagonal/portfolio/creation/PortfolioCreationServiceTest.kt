@@ -1,7 +1,8 @@
-package io.rcardin.hexagonal.portfolio
+package io.rcardin.hexagonal.portfolio.creation
 
 import com.nhaarman.mockitokotlin2.whenever
-import io.rcardin.hexagonal.portfolio.PortfolioCreationUseCase.PortfolioCreationCommand
+import io.rcardin.hexagonal.portfolio.Portfolio
+import io.rcardin.hexagonal.portfolio.creation.PortfolioCreationUseCase.PortfolioCreationCommand
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
