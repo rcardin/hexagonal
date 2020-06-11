@@ -4,8 +4,8 @@ import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document
 import org.springframework.data.repository.kotlin.CoroutineCrudRepository
 
-interface PortfolioRepository: CoroutineCrudRepository<MongoPortfolio, String> {
-}
+interface PortfolioRepository: CoroutineCrudRepository<MongoPortfolio, String>,
+        CustomPortfolioRepository
 
 @Document(collection = "portfolio")
 data class MongoPortfolio(
