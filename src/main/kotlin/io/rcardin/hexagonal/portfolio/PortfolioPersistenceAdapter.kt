@@ -25,7 +25,10 @@ class PortfolioPersistenceAdapter(
     override suspend fun addStockToPortfolio(
             portfolio: String,
             stock: String,
-            quantity: Long): Portfolio? {
-        TODO("Add a custom repository")
+            quantity: Long): Boolean {
+        return repository.addQuantityToStockInAPortfolio(
+                portfolio, stock, quantity)?.let { result ->
+            return result.modifiedCount > 0
+        } ?: false
     }
 }
