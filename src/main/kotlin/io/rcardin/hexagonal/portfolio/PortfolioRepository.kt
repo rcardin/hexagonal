@@ -7,6 +7,18 @@ import org.springframework.data.repository.kotlin.CoroutineCrudRepository
 interface PortfolioRepository: CoroutineCrudRepository<MongoPortfolio, String>,
         CustomPortfolioRepository
 
+/**
+ * The persisted BSON is something like the following:
+ * <pre>
+ *     {
+ *       "_id:" "rcardin-portfolio",
+ *       "stocks": {
+ *         "AAPL": 12345,
+ *         "GOOGL": 9876
+ *       }
+ *     }
+ * </pre>
+ */
 @Document(collection = "portfolio")
 data class MongoPortfolio(
         @Id val name: String,
