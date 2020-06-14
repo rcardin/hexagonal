@@ -1,5 +1,6 @@
 package io.rcardin.hexagonal.portfolio
 
+import com.mongodb.client.result.UpdateResult
 import com.nhaarman.mockitokotlin2.whenever
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Assertions.assertFalse
@@ -36,5 +37,44 @@ internal class PortfolioPersistenceAdapterTest {
                 whenever(repository.save(portfolio.toMongo())).thenThrow(RuntimeException())
                 val result = persistenceAdapter.createPortfolio(portfolio)
                 assertFalse(result)
+            }
+
+    @Test
+    internal fun `The purchase of a stock should return false if the portfolio does not exist`() =
+            runBlocking {
+                whenever(repository.addQuantityToStockInAPortfolio(
+                        "portfolio",
+                        "AAPL",
+                        1000L)).thenReturn(
+                        UpdateResult.acknowledged(0, 0, null)
+                )
+                val result = persistenceAdapter.addStockToPortfolio("portfolio", "AAPL", 1000L)
+                assertFalse(result)
+            }
+
+    @Test
+    internal fun `The purchase of a stock should return false if the repository return nothing`() =
+            runBlocking {
+                whenever(repository.addQuantityToStockInAPortfolio(
+                        "portfolio",
+                        "AAPL",
+                        1000L)).thenReturn(null)
+                val result = persistenceAdapter.addStockToPortfolio(
+                        "portfolio", "AAPL", 1000L)
+                assertFalse(result)
+            }
+
+    @Test
+    internal fun `The purchase of a stock should return true if the portfolio was updated`() =
+            runBlocking {
+                whenever(repository.addQuantityToStockInAPortfolio(
+                        "portfolio",
+                        "AAPL",
+                        1000L)).thenReturn(
+                        UpdateResult.acknowledged(1, 1, null)
+                )
+                val result = persistenceAdapter.addStockToPortfolio(
+                        "portfolio", "AAPL", 1000L)
+                assertTrue(result)
             }
 }
