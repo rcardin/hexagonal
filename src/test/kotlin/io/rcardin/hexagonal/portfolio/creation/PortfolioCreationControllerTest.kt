@@ -11,7 +11,7 @@ import org.springframework.boot.test.mock.mockito.MockBean
 import org.springframework.test.web.reactive.server.WebTestClient
 import org.springframework.web.reactive.function.BodyInserters
 
-@WebFluxTest
+@WebFluxTest(controllers = [ PortfolioCreationController::class ])
 internal class PortfolioCreationControllerTest {
 
     @MockBean
