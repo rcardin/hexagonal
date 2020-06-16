@@ -8,4 +8,5 @@ represented domain model is the management of a **stocks' portfolio**.
 ## User Stories
 
 The implemented user stories are the following:
-- A user should create a new portfolio 
+- A user should create a new portfolio
+- A user should buy stocks for an existing portfolio
