@@ -64,4 +64,17 @@ internal class CustomPortfolioRepositoryImplIT {
                                 mapOf(("AAPL" to 100L))))
                 Unit
             }
+
+    @Test
+    fun `Buy a stock for a portfolio that not exists should not make any change`() =
+            runBlocking {
+                val maybeResult = repository.addQuantityToStockInAPortfolio(
+                        "portfolio", "AAPL", 100L)
+                expectThat(maybeResult).isNotNull()
+                maybeResult?.let { result ->
+                    expectThat(result.matchedCount).isEqualTo(0)
+                    expectThat(result.modifiedCount).isEqualTo(0)
+                }
+                Unit
+            }
 }
