@@ -20,4 +20,23 @@ class CustomPortfolioRepositoryImpl(
                 MongoPortfolio::class.java
         ).awaitFirstOrNull()
     }
+
+    override suspend fun subtractQuantityToStockInAPortfolio(
+            portfolio: String,
+            stock: String,
+            quantity: Long): UpdateResult? {
+        return mongo.updateFirst(
+                Query.query(isIdEqualToAndQuantityGte(portfolio, stock, quantity)),
+                Update().inc("stocks.$stock", -quantity),
+                MongoPortfolio::class.java
+        ).awaitFirstOrNull()
+    }
+
+    private fun isIdEqualToAndQuantityGte(
+            portfolio: String,
+            stock: String,
+            quantity: Long): Criteria {
+        return Criteria.where("_id").isEqualTo(portfolio)
+                .andOperator(Criteria.where("stocks.$stock").gte(quantity))
+    }
 }
