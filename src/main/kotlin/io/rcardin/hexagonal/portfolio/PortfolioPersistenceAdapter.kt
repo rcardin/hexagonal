@@ -2,13 +2,15 @@ package io.rcardin.hexagonal.portfolio
 
 import io.rcardin.hexagonal.portfolio.creation.PortfolioCreationPort
 import io.rcardin.hexagonal.portfolio.purchase.StockPurchasePort
+import io.rcardin.hexagonal.portfolio.selling.StockSellingPort
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Component
 
 @Component
 class PortfolioPersistenceAdapter(
-        private val repository: PortfolioRepository): PortfolioCreationPort, StockPurchasePort {
+        private val repository: PortfolioRepository):
+        PortfolioCreationPort, StockPurchasePort, StockSellingPort {
 
     private val logger: Logger = LoggerFactory.getLogger(javaClass)
 
@@ -30,5 +32,14 @@ class PortfolioPersistenceAdapter(
                 portfolio, stock, quantity)?.let { result ->
             return result.modifiedCount > 0
         } ?: false
+    }
+
+    override suspend fun removeStockFromPortfolio(
+            portfolio: String,
+            stock: String,
+            quantity: Long): Boolean {
+        repository.subtractQuantityToStockInAPortfolio(portfolio, stock, quantity)
+        // TODO Fake implementation of the return type
+        return true
     }
 }
