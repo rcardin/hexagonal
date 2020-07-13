@@ -77,4 +77,44 @@ internal class PortfolioPersistenceAdapterTest {
                         "portfolio", "AAPL", 1000L)
                 assertTrue(result)
             }
+
+    @Test
+    internal fun `The selling of a stock should return false if the portfolio does not exist`() =
+            runBlocking {
+                whenever(repository.subtractQuantityToStockInAPortfolio(
+                        "portfolio",
+                        "AAPL",
+                        1000L)).thenReturn(
+                        UpdateResult.acknowledged(0, 0, null)
+                )
+                val result = persistenceAdapter.removeStockFromPortfolio(
+                        "portfolio", "AAPL", 1000L)
+                assertFalse(result)
+            }
+
+    @Test
+    internal fun `The selling of a stock should return false if the repository return nothing`() =
+            runBlocking {
+                whenever(repository.subtractQuantityToStockInAPortfolio(
+                        "portfolio",
+                        "AAPL",
+                        1000L)).thenReturn(null)
+                val result = persistenceAdapter.removeStockFromPortfolio(
+                        "portfolio", "AAPL", 1000L)
+                assertFalse(result)
+            }
+
+    @Test
+    internal fun `The selling of a stock should return true if the portfolio was updated`() =
+            runBlocking {
+                whenever(repository.subtractQuantityToStockInAPortfolio(
+                        "portfolio",
+                        "AAPL",
+                        1000L)).thenReturn(
+                        UpdateResult.acknowledged(1, 1, null)
+                )
+                val result = persistenceAdapter.removeStockFromPortfolio(
+                        "portfolio", "AAPL", 1000L)
+                assertTrue(result)
+            }
 }
