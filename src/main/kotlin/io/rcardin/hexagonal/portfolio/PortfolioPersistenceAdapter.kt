@@ -38,8 +38,9 @@ class PortfolioPersistenceAdapter(
             portfolio: String,
             stock: String,
             quantity: Long): Boolean {
-        repository.subtractQuantityToStockInAPortfolio(portfolio, stock, quantity)
-        // TODO Fake implementation of the return type
-        return true
+        return repository.subtractQuantityToStockInAPortfolio(
+                portfolio, stock, quantity)?.let { result ->
+            return result.modifiedCount > 0
+        } ?: false
     }
 }
