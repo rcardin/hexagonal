@@ -11,4 +11,5 @@ The implemented user stories are the following:
 - A user should create a new portfolio.
 - A user should buy stocks for an existing portfolio.
 - A user should sell stocks that it owns.
-- The system should produce an event if a stock quantity falls below a threshold
+- The system should receive the quotation of a stock via Kafka message
+- The system should produce an event if the value of a owned stock falls down below a threshold
