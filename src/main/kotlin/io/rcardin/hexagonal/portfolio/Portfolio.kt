@@ -12,5 +12,3 @@ data class Portfolio(val name: String, val stocks: Set<Stock> = setOf()) {
 data class Stock(val name: String, val owned: Long) {
     fun add(quantity: Long): Stock = copy(owned = owned + quantity)
 }
-
-data class Price(val name: String, val value: Double)
