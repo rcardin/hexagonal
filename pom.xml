@@ -137,6 +137,21 @@
 			<name>bintray</name>
 			<url>https://jcenter.bintray.com</url>
 		</repository>
+		<repository>
+			<id>central</id>
+			<url>https://repo1.maven.org/maven2</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>github</id>
+			<name>GitHub rcardin Apache Maven Packages</name>
+			<url>https://maven.pkg.github.com/rcardin/kafkaesque</url>
+		</repository>
 	</repositories>
 	<pluginRepositories>
 		<pluginRepository>
