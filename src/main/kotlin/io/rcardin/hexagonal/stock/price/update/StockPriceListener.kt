@@ -18,9 +18,11 @@ class StockPriceListener(private val useCase: StockPriceUpdateUseCase) {
                 "value.deserializer=org.apache.kafka.common.serialization.DoubleDeserializer"
             ]
     )
-    suspend fun listenToPrices(
+    fun listenToPrices(
             @Header(name = KafkaHeaders.RECEIVED_MESSAGE_KEY) stock: String,
             @Payload price: Double) {
-        useCase.updatePrice(StockPriceUpdateUseCase.StockPriceUpdateCommand(stock, price))
+        runBlocking {
+            useCase.updatePrice(StockPriceUpdateUseCase.StockPriceUpdateCommand(stock, price))
+        }
     }
 }
