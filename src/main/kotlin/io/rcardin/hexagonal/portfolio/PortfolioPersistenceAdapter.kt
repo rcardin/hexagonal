@@ -3,6 +3,7 @@ package io.rcardin.hexagonal.portfolio
 import io.rcardin.hexagonal.portfolio.creation.PortfolioCreationPort
 import io.rcardin.hexagonal.portfolio.purchase.StockPurchasePort
 import io.rcardin.hexagonal.portfolio.selling.StockSellingPort
+import io.rcardin.hexagonal.stock.price.update.PortfolioLoadByStockNamePort
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Component
@@ -10,7 +11,7 @@ import org.springframework.stereotype.Component
 @Component
 class PortfolioPersistenceAdapter(
         private val repository: PortfolioRepository):
-        PortfolioCreationPort, StockPurchasePort, StockSellingPort {
+        PortfolioCreationPort, StockPurchasePort, StockSellingPort, PortfolioLoadByStockNamePort {
 
     private val logger: Logger = LoggerFactory.getLogger(javaClass)
 
@@ -42,5 +43,9 @@ class PortfolioPersistenceAdapter(
                 portfolio, stock, quantity)?.let { result ->
             return result.modifiedCount > 0
         } ?: false
+    }
+
+    override suspend fun loadPortfoliosHavingStock(name: String): List<Portfolio> {
+        TODO("Not yet implemented")
     }
 }
