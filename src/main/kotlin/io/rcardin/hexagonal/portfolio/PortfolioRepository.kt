@@ -1,11 +1,17 @@
 package io.rcardin.hexagonal.portfolio
 
+import kotlinx.coroutines.flow.Flow
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document
+import org.springframework.data.mongodb.repository.Query
 import org.springframework.data.repository.kotlin.CoroutineCrudRepository
 
 interface PortfolioRepository: CoroutineCrudRepository<MongoPortfolio, String>,
-        CustomPortfolioRepository
+        CustomPortfolioRepository {
+
+    @Query("{'stocks.?0': { \$exists: true} }")
+    suspend fun findAllHavingStock(stock: String): Flow<MongoPortfolio>
+}
 
 /**
  * The persisted BSON is something like the following:
