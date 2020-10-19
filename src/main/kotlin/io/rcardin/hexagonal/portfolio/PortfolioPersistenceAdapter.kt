@@ -3,7 +3,9 @@ package io.rcardin.hexagonal.portfolio
 import io.rcardin.hexagonal.portfolio.creation.PortfolioCreationPort
 import io.rcardin.hexagonal.portfolio.purchase.StockPurchasePort
 import io.rcardin.hexagonal.portfolio.selling.StockSellingPort
-import io.rcardin.hexagonal.stock.price.update.PortfolioLoadByStockNamePort
+import io.rcardin.hexagonal.portfolio.pricealert.PortfolioLoadByStockNamePort
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Component
@@ -45,7 +47,8 @@ class PortfolioPersistenceAdapter(
         } ?: false
     }
 
-    override suspend fun loadPortfoliosHavingStock(name: String): List<Portfolio> {
-        TODO("Not yet implemented")
+    override suspend fun loadPortfoliosHavingStock(name: String): Flow<Portfolio> {
+        return repository.findAllHavingStock(name)
+                .map { mongoPortfolio -> mongoPortfolio.toPortfolio() }
     }
 }
