@@ -5,5 +5,7 @@ package io.rcardin.hexagonal.portfolio.pricealert
  * under a given threshold
  */
 interface PortfolioAlertForPriceUseCase {
-    suspend fun alertPriceFalling(stock: String)
+    suspend fun alertPriceFalling(command: PortfolioAlertForPriceCommand)
+
+    data class PortfolioAlertForPriceCommand(val stock: String, val price: Double)
 }
