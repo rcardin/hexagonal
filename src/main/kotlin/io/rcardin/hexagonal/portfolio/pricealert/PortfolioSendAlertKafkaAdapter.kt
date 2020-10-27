@@ -4,7 +4,7 @@ import org.springframework.kafka.core.KafkaTemplate
 import org.springframework.stereotype.Component
 
 @Component
-class PortfolioSendAlertOverKafka(
+class PortfolioSendAlertKafkaAdapter(
         private val producer: KafkaTemplate<String, Double>
 ): PortfolioSendAlertForLowPriceStockPort {
     override suspend fun sendAlert(portfolio: String, stock: String, price: Double) {
