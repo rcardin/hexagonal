@@ -7,7 +7,6 @@ import kotlinx.coroutines.runBlocking
 import org.apache.kafka.clients.producer.ProducerRecord
 import org.apache.kafka.common.serialization.DoubleSerializer
 import org.apache.kafka.common.serialization.StringSerializer
-import org.junit.Ignore
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.beans.factory.annotation.Autowired
@@ -67,7 +66,7 @@ internal class StockPriceListenerIT {
     private fun buildMessages(): List<ProducerRecord<String, Double>>? {
         return listOf(
                 ProducerRecord<String, Double>("prices", "AAPL", 1234.56),
-                ProducerRecord<String, Double>("prices", "TSLA", 123.45)
+                ProducerRecord("prices", "TSLA", 123.45)
         )
     }
 }
