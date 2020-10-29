@@ -1,10 +1,10 @@
 package io.rcardin.hexagonal.stock.price.update
 
 import `in`.rcard.kafkaesque.Kafkaesque
+import `in`.rcard.kafkaesque.KafkaesqueProducer.Record
 import com.nhaarman.mockitokotlin2.times
 import com.nhaarman.mockitokotlin2.verify
 import kotlinx.coroutines.runBlocking
-import org.apache.kafka.clients.producer.ProducerRecord
 import org.apache.kafka.common.serialization.DoubleSerializer
 import org.apache.kafka.common.serialization.StringSerializer
 import org.junit.jupiter.api.Test
@@ -63,10 +63,7 @@ internal class StockPriceListenerIT {
                 }
     }
 
-    private fun buildMessages(): List<ProducerRecord<String, Double>>? {
-        return listOf(
-                ProducerRecord<String, Double>("prices", "AAPL", 1234.56),
-                ProducerRecord("prices", "TSLA", 123.45)
-        )
+    private fun buildMessages(): List<Record<String, Double>>? {
+        return listOf(Record.of("AAPL", 1234.56), Record.of("TSLA", 123.45))
     }
 }
