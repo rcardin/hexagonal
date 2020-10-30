@@ -12,14 +12,14 @@ internal class PortfolioCreationServiceTest {
 
     @Test
     internal fun `The creation of a portfolio should return the result of the persistence operation`() =
-            runBlocking {
-                val portfolio = Portfolio("portfolio")
-                val creationPort: PortfolioCreationPort = mock {
-                    onBlocking { createPortfolio(portfolio) } doReturn true
-                }
-                val service = PortfolioCreationService(creationPort)
-                Assertions.assertTrue(
-                    service.createPortfolio(PortfolioCreationCommand("portfolio"))
-                )
+        runBlocking {
+            val portfolio = Portfolio("portfolio")
+            val creationPort: PortfolioCreationPort = mock {
+                onBlocking { createPortfolio(portfolio) } doReturn true
             }
+            val service = PortfolioCreationService(creationPort)
+            Assertions.assertTrue(
+                service.createPortfolio(PortfolioCreationCommand("portfolio"))
+            )
+        }
 }

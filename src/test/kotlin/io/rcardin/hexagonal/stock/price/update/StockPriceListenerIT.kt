@@ -22,22 +22,22 @@ import org.springframework.test.context.junit.jupiter.SpringExtension
 
 @ExtendWith(SpringExtension::class)
 @SpringBootTest(
-        webEnvironment = SpringBootTest.WebEnvironment.NONE,
-        classes = [StockPriceListener::class],
-        properties = [
-            "spring.kafka.consumer.auto-offset-reset=earliest"
-        ]
+    webEnvironment = SpringBootTest.WebEnvironment.NONE,
+    classes = [StockPriceListener::class],
+    properties = [
+        "spring.kafka.consumer.auto-offset-reset=earliest"
+    ]
 )
 @EmbeddedKafka(
-        topics = ["prices"],
-        bootstrapServersProperty = "spring.kafka.bootstrap-servers"
+    topics = ["prices"],
+    bootstrapServersProperty = "spring.kafka.bootstrap-servers"
 )
 @EnableAutoConfiguration(
-        exclude = [
-            EmbeddedMongoAutoConfiguration::class,
-            MongoAutoConfiguration::class,
-            MongoReactiveAutoConfiguration::class
-        ]
+    exclude = [
+        EmbeddedMongoAutoConfiguration::class,
+        MongoAutoConfiguration::class,
+        MongoReactiveAutoConfiguration::class
+    ]
 )
 internal class StockPriceListenerIT {
 
@@ -50,17 +50,17 @@ internal class StockPriceListenerIT {
     @Test
     fun `The listener should read update stock messages and properly process them`() {
         Kafkaesque.usingBroker(broker)
-                .produce<String, Double>()
-                .toTopic("prices")
-                .withSerializers(StringSerializer(), DoubleSerializer())
-                .messages(buildMessages())
-                .expecting()
-                .assertingAfterAll {
-                    runBlocking {
-                        verify(useCase, times(1))
-                                .updatePrice(StockPriceUpdateUseCase.StockPriceUpdateCommand("AAPL", 1234.56))
-                    }
+            .produce<String, Double>()
+            .toTopic("prices")
+            .withSerializers(StringSerializer(), DoubleSerializer())
+            .messages(buildMessages())
+            .expecting()
+            .assertingAfterAll {
+                runBlocking {
+                    verify(useCase, times(1))
+                        .updatePrice(StockPriceUpdateUseCase.StockPriceUpdateCommand("AAPL", 1234.56))
                 }
+            }
     }
 
     private fun buildMessages(): List<Record<String, Double>>? {

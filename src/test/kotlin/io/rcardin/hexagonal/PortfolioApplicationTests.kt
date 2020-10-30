@@ -6,8 +6,7 @@ import org.springframework.boot.test.context.SpringBootTest
 @SpringBootTest
 internal class PortfolioApplicationTests {
 
-	@Test
-	internal fun contextLoads() {
-	}
-
+    @Test
+    internal fun contextLoads() {
+    }
 }

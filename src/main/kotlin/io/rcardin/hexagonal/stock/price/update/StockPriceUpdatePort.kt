@@ -1,7 +1,7 @@
 package io.rcardin.hexagonal.stock.price.update
 
-import io.rcardin.hexagonal.stock.price.Price
+import io.rcardin.hexagonal.stock.price.StockPrice
 
 interface StockPriceUpdatePort {
-    suspend fun updatePrice(stockPrice: Price): Boolean
+    suspend fun updatePrice(stockPrice: StockPrice): Boolean
 }

@@ -7,5 +7,5 @@ import org.springframework.context.annotation.Configuration
 class StockPurchaseConfiguration {
     @Bean
     fun stockPurchaseUseCase(port: StockPurchasePort): StockPurchaseUseCase =
-            StockPurchaseService(port)
+        StockPurchaseService(port)
 }

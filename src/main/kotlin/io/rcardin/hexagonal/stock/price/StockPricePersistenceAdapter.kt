@@ -7,11 +7,11 @@ import org.springframework.stereotype.Component
 
 @Component
 class StockPricePersistenceAdapter(private val repository: StockPriceRepository) :
-        StockPriceUpdatePort {
+    StockPriceUpdatePort {
 
     private val logger: Logger = LoggerFactory.getLogger(javaClass)
 
-    override suspend fun updatePrice(stockPrice: Price): Boolean {
+    override suspend fun updatePrice(stockPrice: StockPrice): Boolean {
         return try {
             repository.save(stockPrice.toMongo())
             true

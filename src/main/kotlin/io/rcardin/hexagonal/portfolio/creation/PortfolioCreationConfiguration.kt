@@ -7,5 +7,5 @@ import org.springframework.context.annotation.Configuration
 class PortfolioCreationConfiguration {
     @Bean
     fun portfolioCreationUseCase(port: PortfolioCreationPort): PortfolioCreationUseCase =
-            PortfolioCreationService(port)
+        PortfolioCreationService(port)
 }

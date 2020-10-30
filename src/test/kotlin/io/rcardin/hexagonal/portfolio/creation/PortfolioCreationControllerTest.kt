@@ -1,7 +1,6 @@
 package io.rcardin.hexagonal.portfolio.creation
 
 import com.nhaarman.mockitokotlin2.whenever
-import io.rcardin.hexagonal.portfolio.creation.PortfolioCreationUseCase
 import io.rcardin.hexagonal.portfolio.creation.PortfolioCreationUseCase.PortfolioCreationCommand
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Test
@@ -22,30 +21,30 @@ internal class PortfolioCreationControllerTest {
 
     @Test
     internal fun `Create portfolio should return a 201 status within the Location header`(): Unit =
-            runBlocking {
-                val command = PortfolioCreationCommand("portfolio")
-                whenever(userCase.createPortfolio(command)).thenReturn(true)
-                client.post()
-                        .uri("/portfolios")
-                        .body(BodyInserters.fromValue("portfolio"))
-                        .exchange()
-                        .expectStatus()
-                        .isCreated
-                        .expectHeader()
-                        .valueEquals("Location", "/portfolios/portfolio")
-                Unit
-            }
+        runBlocking {
+            val command = PortfolioCreationCommand("portfolio")
+            whenever(userCase.createPortfolio(command)).thenReturn(true)
+            client.post()
+                .uri("/portfolios")
+                .body(BodyInserters.fromValue("portfolio"))
+                .exchange()
+                .expectStatus()
+                .isCreated
+                .expectHeader()
+                .valueEquals("Location", "/portfolios/portfolio")
+            Unit
+        }
 
     @Test
     internal fun `Create a portfolio should return a 500 status in case of exception`() = runBlocking {
         val command = PortfolioCreationCommand("portfolio")
         whenever(userCase.createPortfolio(command)).thenReturn(false)
         client.post()
-                .uri("/portfolios")
-                .body(BodyInserters.fromValue("portfolio"))
-                .exchange()
-                .expectStatus()
-                .is5xxServerError
+            .uri("/portfolios")
+            .body(BodyInserters.fromValue("portfolio"))
+            .exchange()
+            .expectStatus()
+            .is5xxServerError
         Unit
     }
 }

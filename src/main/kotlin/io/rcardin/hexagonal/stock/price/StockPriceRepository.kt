@@ -4,7 +4,7 @@ import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document
 import org.springframework.data.repository.kotlin.CoroutineCrudRepository
 
-interface StockPriceRepository: CoroutineCrudRepository<MongoStockPrice, String>
+interface StockPriceRepository : CoroutineCrudRepository<MongoStockPrice, String>
 
 /**
  * The persisted BSON is something like the following:
@@ -17,13 +17,13 @@ interface StockPriceRepository: CoroutineCrudRepository<MongoStockPrice, String>
  */
 @Document(collation = "stock-price")
 data class MongoStockPrice(
-        @Id val name: String,
-        val price: Double
+    @Id val name: String,
+    val price: Double
 )
 
-fun Price.toMongo(): MongoStockPrice {
+fun StockPrice.toMongo(): MongoStockPrice {
     return MongoStockPrice(
-            this.name,
-            this.value
+        this.name,
+        this.value
     )
 }

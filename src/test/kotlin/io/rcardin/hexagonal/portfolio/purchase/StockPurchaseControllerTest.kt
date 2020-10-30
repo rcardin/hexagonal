@@ -21,29 +21,31 @@ internal class StockPurchaseControllerTest {
     @Test
     fun `Buy a stock should return a 200 status if everything is ok`() = runBlocking {
         val command = StockPurchaseUseCase.StockPurchaseCommand(
-                "portfolio", "AAPL", 1000L)
+            "portfolio", "AAPL", 1000L
+        )
         whenever(userCase.buy(command)).thenReturn(true)
         client.put()
-                .uri("/portfolios/portfolio/stocks/AAPL")
-                .body(BodyInserters.fromValue(1000L))
-                .exchange()
-                .expectStatus()
-                .isOk
+            .uri("/portfolios/portfolio/stocks/AAPL")
+            .body(BodyInserters.fromValue(1000L))
+            .exchange()
+            .expectStatus()
+            .isOk
         Unit
     }
 
     @Test
     fun `Buy a stock should return a 404 status if the portfolio does not exist`() =
-            runBlocking {
-                val command = StockPurchaseUseCase.StockPurchaseCommand(
-                        "portfolio", "AAPL", 1000L)
-                whenever(userCase.buy(command)).thenReturn(false)
-                client.put()
-                        .uri("/portfolios/portfolio/stocks/AAPL")
-                        .body(BodyInserters.fromValue(1000L))
-                        .exchange()
-                        .expectStatus()
-                        .isNotFound
-                Unit
-            }
+        runBlocking {
+            val command = StockPurchaseUseCase.StockPurchaseCommand(
+                "portfolio", "AAPL", 1000L
+            )
+            whenever(userCase.buy(command)).thenReturn(false)
+            client.put()
+                .uri("/portfolios/portfolio/stocks/AAPL")
+                .body(BodyInserters.fromValue(1000L))
+                .exchange()
+                .expectStatus()
+                .isNotFound
+            Unit
+        }
 }

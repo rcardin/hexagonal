@@ -1,4 +1,6 @@
 ![](https://github.com/rcardin/hexagonal/workflows/Hexagonal/badge.svg)
+[![Code Style](https://img.shields.io/badge/code%20style-%E2%9D%A4-FF4081.svg)](https://ktlint.github.io)
+
 
 # Hexagonal Architecture
 

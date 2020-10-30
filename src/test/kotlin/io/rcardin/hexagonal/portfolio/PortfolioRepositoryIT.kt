@@ -28,8 +28,8 @@ class PortfolioRepositoryIT {
             mongo.insertAll(listOf(p1, p2)).awaitLast()
             val retrievedPortfolios = repository.findAllHavingStock("TSLA").toList()
             expectThat(retrievedPortfolios)
-                    .hasSize(1)
-                    .contains(p2)
+                .hasSize(1)
+                .contains(p2)
         }
     }
 }

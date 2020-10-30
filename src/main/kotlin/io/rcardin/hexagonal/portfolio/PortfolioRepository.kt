@@ -6,8 +6,9 @@ import org.springframework.data.mongodb.core.mapping.Document
 import org.springframework.data.mongodb.repository.Query
 import org.springframework.data.repository.kotlin.CoroutineCrudRepository
 
-interface PortfolioRepository: CoroutineCrudRepository<MongoPortfolio, String>,
-        CustomPortfolioRepository {
+interface PortfolioRepository :
+    CoroutineCrudRepository<MongoPortfolio, String>,
+    CustomPortfolioRepository {
 
     @Query("{'stocks.?0': { \$exists: true} }")
     suspend fun findAllHavingStock(stock: String): Flow<MongoPortfolio>
@@ -27,19 +28,22 @@ interface PortfolioRepository: CoroutineCrudRepository<MongoPortfolio, String>,
  */
 @Document(collection = "portfolio")
 data class MongoPortfolio(
-        @Id val name: String,
-        val stocks: Map<String, Long>) {
+    @Id val name: String,
+    val stocks: Map<String, Long>
+) {
     fun toPortfolio(): Portfolio {
         return Portfolio(
-                name,
-                stocks.map { Stock(it.key, it.value) }.toSet())
+            name,
+            stocks.map { Stock(it.key, it.value) }.toSet()
+        )
     }
 }
 
 fun Portfolio.toMongo(): MongoPortfolio {
     return MongoPortfolio(
-            this.name,
-            this.stocks
-                    .groupBy { it.name }
-                    .mapValues { it.value.first().owned })
+        this.name,
+        this.stocks
+            .groupBy { it.name }
+            .mapValues { it.value.first().owned }
+    )
 }

@@ -9,5 +9,5 @@ import org.springframework.kafka.annotation.EnableKafka
 class StockPriceUpdateConfiguration {
     @Bean
     fun stockPriceUpdateUseCase(port: StockPriceUpdatePort): StockPriceUpdateUseCase =
-            StockPriceUpdateService(port)
+        StockPriceUpdateService(port)
 }

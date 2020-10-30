@@ -20,22 +20,22 @@ import strikt.assertions.containsExactlyInAnyOrder
 
 @ExtendWith(SpringExtension::class)
 @SpringBootTest(
-        webEnvironment = SpringBootTest.WebEnvironment.NONE,
-        classes = [PortfolioSendAlertKafkaAdapter::class],
-        properties = [
-            "spring.kafka.consumer.auto-offset-reset=earliest"
-        ]
+    webEnvironment = SpringBootTest.WebEnvironment.NONE,
+    classes = [PortfolioSendAlertKafkaAdapter::class],
+    properties = [
+        "spring.kafka.consumer.auto-offset-reset=earliest"
+    ]
 )
 @EmbeddedKafka(
-        topics = ["price-alerts"],
-        bootstrapServersProperty = "spring.kafka.bootstrap-servers"
+    topics = ["price-alerts"],
+    bootstrapServersProperty = "spring.kafka.bootstrap-servers"
 )
 @EnableAutoConfiguration(
-        exclude = [
-            EmbeddedMongoAutoConfiguration::class,
-            MongoAutoConfiguration::class,
-            MongoReactiveAutoConfiguration::class
-        ]
+    exclude = [
+        EmbeddedMongoAutoConfiguration::class,
+        MongoAutoConfiguration::class,
+        MongoReactiveAutoConfiguration::class
+    ]
 )
 internal class PortfolioSendAlertKafkaAdapterIT {
 
@@ -51,18 +51,18 @@ internal class PortfolioSendAlertKafkaAdapterIT {
             kafkaAdapter.sendAlert("p1", "AAPL", 345.6)
             kafkaAdapter.sendAlert("p1", "GOOGL", 123.4)
             Kafkaesque.usingBroker(broker)
-                    .consume<String, Double>()
-                    .fromTopic("price-alerts")
-                    .withDeserializers(StringDeserializer(), DoubleDeserializer())
-                    .expecting()
-                    .havingRecordsSize(2)
-                    .havingKeys { keys ->
-                        expectThat(keys).containsExactlyInAnyOrder("p1-AAPL", "p1-GOOGL")
-                    }
-                    .havingPayloads { payloads ->
-                        expectThat(payloads).containsExactlyInAnyOrder(345.6, 123.4)
-                    }
-                    .andCloseConsumer()
+                .consume<String, Double>()
+                .fromTopic("price-alerts")
+                .withDeserializers(StringDeserializer(), DoubleDeserializer())
+                .expecting()
+                .havingRecordsSize(2)
+                .havingKeys { keys ->
+                    expectThat(keys).containsExactlyInAnyOrder("p1-AAPL", "p1-GOOGL")
+                }
+                .havingPayloads { payloads ->
+                    expectThat(payloads).containsExactlyInAnyOrder(345.6, 123.4)
+                }
+                .andCloseConsumer()
         }
     }
 }
