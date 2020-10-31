@@ -1,4 +1,4 @@
-package io.rcardin.hexagonal.stock.price.update
+package io.rcardin.hexagonal.stock.price.application.port.`in`
 
 /**
  * Input port to update the price of a stock.

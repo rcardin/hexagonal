@@ -1,5 +1,6 @@
-package io.rcardin.hexagonal.stock.price.update
+package io.rcardin.hexagonal.stock.price.adapter.`in`.event
 
+import io.rcardin.hexagonal.stock.price.application.port.`in`.StockPriceUpdateUseCase
 import kotlinx.coroutines.runBlocking
 import org.springframework.kafka.annotation.KafkaListener
 import org.springframework.kafka.support.KafkaHeaders

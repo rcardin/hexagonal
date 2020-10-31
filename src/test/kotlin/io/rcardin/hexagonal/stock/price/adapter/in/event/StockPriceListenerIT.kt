@@ -1,9 +1,11 @@
-package io.rcardin.hexagonal.stock.price.update
+package io.rcardin.hexagonal.stock.price.adapter.`in`.event
 
 import `in`.rcard.kafkaesque.Kafkaesque
 import `in`.rcard.kafkaesque.KafkaesqueProducer.Record
 import com.nhaarman.mockitokotlin2.times
 import com.nhaarman.mockitokotlin2.verify
+import io.rcardin.hexagonal.stock.price.adapter.`in`.event.StockPriceListener
+import io.rcardin.hexagonal.stock.price.application.port.`in`.StockPriceUpdateUseCase
 import kotlinx.coroutines.runBlocking
 import org.apache.kafka.common.serialization.DoubleSerializer
 import org.apache.kafka.common.serialization.StringSerializer

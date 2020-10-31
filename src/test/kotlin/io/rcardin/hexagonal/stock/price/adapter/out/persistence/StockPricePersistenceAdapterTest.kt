@@ -1,7 +1,8 @@
-package io.rcardin.hexagonal.stock.price
+package io.rcardin.hexagonal.stock.price.adapter.out.persistence
 
 import com.nhaarman.mockitokotlin2.doThrow
 import com.nhaarman.mockitokotlin2.mock
+import io.rcardin.hexagonal.stock.price.domain.StockPrice
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue

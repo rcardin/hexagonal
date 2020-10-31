@@ -1,5 +1,6 @@
-package io.rcardin.hexagonal.stock.price
+package io.rcardin.hexagonal.stock.price.adapter.out.persistence
 
+import io.rcardin.hexagonal.stock.price.domain.StockPrice
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document
 import org.springframework.data.repository.kotlin.CoroutineCrudRepository

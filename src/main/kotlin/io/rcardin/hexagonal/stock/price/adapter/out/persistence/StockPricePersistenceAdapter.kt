@@ -1,6 +1,7 @@
-package io.rcardin.hexagonal.stock.price
+package io.rcardin.hexagonal.stock.price.adapter.out.persistence
 
-import io.rcardin.hexagonal.stock.price.update.StockPriceUpdatePort
+import io.rcardin.hexagonal.stock.price.application.port.out.StockPriceUpdatePort
+import io.rcardin.hexagonal.stock.price.domain.StockPrice
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Component
