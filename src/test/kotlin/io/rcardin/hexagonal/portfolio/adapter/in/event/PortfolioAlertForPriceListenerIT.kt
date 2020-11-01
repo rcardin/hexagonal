@@ -24,22 +24,22 @@ import org.springframework.test.context.junit.jupiter.SpringExtension
 
 @ExtendWith(SpringExtension::class)
 @SpringBootTest(
-        webEnvironment = SpringBootTest.WebEnvironment.NONE,
-        classes = [PortfolioAlertForPriceListener::class],
-        properties = [
-            "spring.kafka.consumer.auto-offset-reset=earliest"
-        ]
+    webEnvironment = SpringBootTest.WebEnvironment.NONE,
+    classes = [PortfolioAlertForPriceListener::class],
+    properties = [
+        "spring.kafka.consumer.auto-offset-reset=earliest"
+    ]
 )
 @EmbeddedKafka(
-        topics = ["prices"],
-        bootstrapServersProperty = "spring.kafka.bootstrap-servers"
+    topics = ["prices"],
+    bootstrapServersProperty = "spring.kafka.bootstrap-servers"
 )
 @EnableAutoConfiguration(
-        exclude = [
-            EmbeddedMongoAutoConfiguration::class,
-            MongoAutoConfiguration::class,
-            MongoReactiveAutoConfiguration::class
-        ]
+    exclude = [
+        EmbeddedMongoAutoConfiguration::class,
+        MongoAutoConfiguration::class,
+        MongoReactiveAutoConfiguration::class
+    ]
 )
 internal class PortfolioAlertForPriceListenerIT {
     @Autowired
@@ -51,23 +51,23 @@ internal class PortfolioAlertForPriceListenerIT {
     @Test
     fun `The listener should read update stock messages and properly process them`() {
         Kafkaesque.usingBroker(broker)
-                .produce<String, Double>()
-                .toTopic("prices")
-                .withSerializers(StringSerializer(), DoubleSerializer())
-                .messages(buildMessages())
-                .expecting()
-                .assertingAfterAll {
-                    runBlocking {
-                        verify(useCase, times(1))
-                                .alertPriceFalling(PortfolioAlertForPriceCommand("AAPL", 1234.56))
-                    }
+            .produce<String, Double>()
+            .toTopic("prices")
+            .withSerializers(StringSerializer(), DoubleSerializer())
+            .messages(buildMessages())
+            .expecting()
+            .assertingAfterAll {
+                runBlocking {
+                    verify(useCase, times(1))
+                        .alertPriceFalling(PortfolioAlertForPriceCommand("AAPL", 1234.56))
                 }
+            }
     }
 
     private fun buildMessages(): List<KafkaesqueProducer.Record<String, Double>>? {
         return listOf(
-                KafkaesqueProducer.Record.of("AAPL", 1234.56),
-                KafkaesqueProducer.Record.of("TSLA", 123.45)
+            KafkaesqueProducer.Record.of("AAPL", 1234.56),
+            KafkaesqueProducer.Record.of("TSLA", 123.45)
         )
     }
 }
