@@ -1,10 +1,10 @@
 package io.rcardin.hexagonal.portfolio.adapter.`in`.web
 
 import com.nhaarman.mockitokotlin2.whenever
+import io.rcardin.hexagonal.portfolio.adapter.`in`.web.PortfolioCreationController.PortfolioCreationExceptionHandlers
 import io.rcardin.hexagonal.portfolio.application.port.`in`.PortfolioCreationUseCase
 import io.rcardin.hexagonal.portfolio.application.port.`in`.PortfolioCreationUseCase.PortfolioCreationCommand
 import kotlinx.coroutines.runBlocking
-import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest
@@ -15,7 +15,7 @@ import org.springframework.web.reactive.function.BodyInserters
 @WebFluxTest(
     controllers = [
         PortfolioCreationController::class,
-        PortfolioExceptionHandlers::class
+        PortfolioCreationExceptionHandlers::class
     ]
 )
 internal class PortfolioCreationControllerTest {
@@ -65,9 +65,7 @@ internal class PortfolioCreationControllerTest {
                 .expectStatus()
                 .isBadRequest
                 .expectBody()
-                .consumeWith { response ->
-                    assertThat(String(response.responseBody!!)).isEqualTo("name: NotEmpty")
-                }
+                .json("{\"label\": \"EMPTY_PORTFOLIO_NAME\", \"description\": \"The name of the portfolio cannot be empty\"}")
             Unit
         }
 }
