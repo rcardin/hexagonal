@@ -1,6 +1,7 @@
 package io.rcardin.hexagonal.portfolio.adapter.out.persistence
 
 import io.rcardin.hexagonal.portfolio.application.port.out.PortfolioCreationPort
+import io.rcardin.hexagonal.portfolio.application.port.out.PortfolioLoadByNamePort
 import io.rcardin.hexagonal.portfolio.application.port.out.PortfolioLoadByStockNamePort
 import io.rcardin.hexagonal.portfolio.application.port.out.StockPurchasePort
 import io.rcardin.hexagonal.portfolio.application.port.out.StockSellingPort
@@ -14,8 +15,11 @@ import org.springframework.stereotype.Component
 @Component
 class PortfolioPersistenceAdapter(
     private val repository: PortfolioRepository
-) :
-    PortfolioCreationPort, StockPurchasePort, StockSellingPort, PortfolioLoadByStockNamePort {
+) : PortfolioCreationPort,
+    StockPurchasePort,
+    StockSellingPort,
+    PortfolioLoadByStockNamePort,
+    PortfolioLoadByNamePort {
 
     private val logger: Logger = LoggerFactory.getLogger(javaClass)
 
@@ -56,5 +60,9 @@ class PortfolioPersistenceAdapter(
     override suspend fun loadPortfoliosHavingStock(name: String): Flow<Portfolio> {
         return repository.findAllHavingStock(name)
             .map { mongoPortfolio -> mongoPortfolio.toPortfolio() }
+    }
+
+    override suspend fun loadByName(name: String): Portfolio? {
+        return repository.findById(name)?.toPortfolio()
     }
 }
