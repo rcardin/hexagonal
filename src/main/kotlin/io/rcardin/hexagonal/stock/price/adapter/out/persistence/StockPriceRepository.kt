@@ -16,7 +16,7 @@ interface StockPriceRepository : CoroutineCrudRepository<MongoStockPrice, String
  *     }
  * </pre>
  */
-@Document(collation = "stock-price")
+@Document(collection = "stock-price")
 data class MongoStockPrice(
     @Id val name: String,
     val price: Double
