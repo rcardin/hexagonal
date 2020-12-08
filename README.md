@@ -41,3 +41,9 @@ The implemented user stories are the following:
 - A user should sell stocks that it owns.
 - The system should receive the price of a stock via Kafka message
 - The system should produce an event if the value of an owned stock falls down below a threshold
+
+## Testing
+
+Every concrete type in the project has at least an associated unit test. The test of the components
+that integrate with Kafka use the [`kafkaesque`](https://github.com/rcardin/kafkaesque) testing 
+library.
