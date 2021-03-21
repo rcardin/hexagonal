@@ -17,6 +17,8 @@ Keep in mind that a hexagonal architecture's objective is to avoid dependency fr
 classes to the types that are not directly related to the modeling of the domain. This kind of
 architecture mainly uses the SOLID concept of *Inversion of Dependency*.
 
+![Hexagonal architecture pattern](hexagonal-architecture-pattern.png)
+
 The types colored in light-blue represents the domain, that is the core of the application. These 
 components have no dependency with any other concrete part of the application. This part is the 
 **center of the hexagon**.
@@ -47,3 +49,8 @@ The implemented user stories are the following:
 Every concrete type in the project has at least an associated unit test. The test of the components
 that integrate with Kafka use the [`kafkaesque`](https://github.com/rcardin/kafkaesque) testing 
 library.
+
+## References
+
+* _Microservices Patterns With examples in Java_, Chris Richardson, 2018, Manning Publications
+* _Get Your Hands Dirty on Clean Architecture_, Tom Hombergs, 2019, Packt Publishing
